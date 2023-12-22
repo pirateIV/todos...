@@ -1,3 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 25px;
+}
+
+#app {
+  max-width: 800px;
+  margin: auto;
+}
+
+.todos {
+  margin-top: 30px;
+}
+
+.addTodoForm {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addTodoForm input {
+  flex: 0.84;
+  font-size: 15px;
+}
+
+.addTodoForm button {
+  flex: 0.15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
 input[type='checkbox'] {
   height: 30px;
   width: 30px;
@@ -7,17 +46,20 @@ input[type='checkbox']:checked + label {
 }
 
 li {
-  background: lightgray;
+  padding: 7px;
   margin: 3px;
-  list-style: none;
   display: flex;
-  align-items: center;
+  list-style: none;
   position: relative;
+  align-items: center;
+  background: lightgray;
   animation: 0.45s cubic-bezier(0.165, 0.84, 0.44, 1) fadeIn;
 }
 li label {
+  flex: 0.5;
+  font-size: .8em;
+  font-weight: bold;
   padding-left: 10px;
-  width: 75%;
 }
 .icons {
   right: 20px;
@@ -39,6 +81,7 @@ li .deleteIcon:hover,
 li .deleteIcon:focus {
   color: red;
 }
+
 .todosCount {
   position: absolute;
   right: 30px;
@@ -56,23 +99,61 @@ li .deleteIcon:focus {
   text-align: center;
 }
 
+input[type='text']:focus {
+  border: 1px solid rgb(46, 46, 252);
+}
+
 input[type='text'],
+form button,
 button {
   padding: 12px;
   font-weight: 600;
+  outline: none;
   font-family: 'Dejavu sans';
 }
 
 button {
+  background-image: linear-gradient(#0dccea, #0d70ea);
+  border: 0;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 5px 15px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin: 5px;
+  padding: 10px 15px;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  flex: 1;
+}
+
+form button {
   gap: 10px;
+  color: white;
   display: inline-flex;
   align-items: center;
+  background-color: rgb(46, 46, 252);
+}
+
+button:disabled {
+  background-image: linear-gradient(#0d7ea0, #0dccea);
+  box-shadow: none;
+  font-size: 0.9em;
+  margin: 5px;
+  padding: 10px 15px;
+  flex: 1;
+  cursor: not-allowed;
+  background-color: rgba(46, 46, 252, 0.6);
 }
 
 .custom-btn-filter {
-  width: 400px;
+  width: 50%;
   margin: 50px auto 0;
   display: flex;
+  gap: 10px;
   align-items: center;
 }
 
@@ -85,12 +166,8 @@ button {
   font-weight: bold;
   display: block;
 }
-/* .custom-btn-filter button:focus {
-  outline: 5px solid dashed;
-} */
 
-/* ....... animations ....... */
-
+/* ------ animations ------ */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -99,5 +176,23 @@ button {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .custom-btn-filter {
+    width: 60%;
+    margin: 30px auto 0;
+    gap: 5px;
+  }
+  .addTodoForm input {
+    flex: 0.75;
+  }
+  .addTodoForm button {
+    flex: 0.25;
+  }
+  .addTodoForm input,
+  .addTodoForm button {
+    font-size: 13px;
   }
 }

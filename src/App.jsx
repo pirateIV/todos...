@@ -41,6 +41,9 @@ const App = () => {
             ? `Required length remaining ${5 - todo.length}`
             : todo.length === 0 && 'Maximum required length is 5'
         );
+        setInterval(() => {
+          setMessage('');
+        }, 5000);
       }
     };
     handleInput();
@@ -52,6 +55,7 @@ const App = () => {
     const newTodo = { id, todo, checked: false };
     const todoItems = [...todos, newTodo];
 
+    inputRef.current.focus();
     setAndUpdateItems(todoItems);
     setTodo('');
   };
@@ -74,67 +78,66 @@ const App = () => {
   };
 
   return (
-    <div>
+    <main id='app'>
       <h1>TodoList</h1>
 
-      <AddTodo
-        todo={todo}
-        message={message}
-        setTodo={setTodo}
-        inputRef={inputRef}
-        addTodoRef={addTodoRef}
-        handleAddTodo={handleAddTodo}
-      />
-      {todos.length === 0 ? (
-        <p className='empty'>No todos yet...</p>
-      ) : (
-        todos.length > 0 && (
-          <TodoList
-            todos={todos}
-            handleCheck={handleCheck}
-            handleDelete={handleDelete}
-            customFilter={customFilter}
-          />
-        )
-      )}
+      <section className='todolist-app'>
+        <AddTodo
+          todo={todo}
+          message={message}
+          setTodo={setTodo}
+          inputRef={inputRef}
+          addTodoRef={addTodoRef}
+          handleAddTodo={handleAddTodo}
+        />
+        {todos.length === 0 ? (
+          <p className='empty'>No todos yet...</p>
+        ) : (
+          todos.length > 0 && (
+            <TodoList
+              todos={todos}
+              handleCheck={handleCheck}
+              handleDelete={handleDelete}
+              customFilter={customFilter}
+            />
+          )
+        )}
 
-      <CustomFilter handleFilter={handleFilter} />
+        <CustomFilter handleFilter={handleFilter} />
 
-      {todos.length > 0 && <TodoListLength todos={todos} />}
-    </div>
+        {todos.length > 0 && <TodoListLength todos={todos} />}
+      </section>
+    </main>
   );
 };
 
-const AddTodo = ({
-  todo,
-  setTodo,
-  message,
-  inputRef,
-  addTodoRef,
-  handleAddTodo,
-}) => {
+const AddTodo = props => {
+  const { todo, setTodo, message, inputRef, addTodoRef, handleAddTodo } = props;
   return (
-    <form onSubmit={handleAddTodo}>
-      <input
-        ref={inputRef}
-        type='text'
-        placeholder='Enter Todo...'
-        value={todo}
-        onChange={e => setTodo(e.target.value)}
-      />
-      <button ref={addTodoRef} disabled>
-        Add Todo
-        <FaPlus />
-      </button>
+    <>
+      <form onSubmit={handleAddTodo} className='addTodoForm'>
+        <input
+          ref={inputRef}
+          type='text'
+          placeholder='Enter Todo...'
+          value={todo}
+          onChange={e => setTodo(e.target.value)}
+        />
+        <button ref={addTodoRef} disabled>
+          Add Todo
+          <FaPlus />
+        </button>
+      </form>
       <span className='message'>{message}</span>
-    </form>
+    </>
   );
 };
 
-const TodoList = ({ todos, handleCheck, handleDelete, customFilter }) => {
+const TodoList = props => {
+  const { todos, handleCheck, handleDelete, customFilter } = props;
   const customTodos = [...todos].filter(FILTER_MAP[customFilter]);
   return (
-    <ul>
+    <ul className='todos'>
       {customTodos.map(todo => (
         <ListItem
           key={todo.id}
@@ -148,11 +151,7 @@ const TodoList = ({ todos, handleCheck, handleDelete, customFilter }) => {
 };
 
 const TodoListLength = ({ todos }) => {
-  return (
-    <>
-      <pre className='todosCount'>{todos.length}</pre>
-    </>
-  );
+  return <pre className='todosCount'>{todos.length}</pre>;
 };
 
 const ListItem = ({ todo, handleCheck, handleDelete }) => (
@@ -183,11 +182,7 @@ const CustomFilter = ({ e, handleFilter }) => {
   const filterList = FILTER_NAMES.map(name => (
     <FilterButton key={name} name={name} handleFilter={handleFilter} />
   ));
-  return (
-    <>
-      <div className='custom-btn-filter'>{filterList}</div>
-    </>
-  );
+  return <div className='custom-btn-filter'>{filterList}</div>;
 };
 
 const FilterButton = ({ name, handleFilter }) => {
