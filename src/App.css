@@ -91,7 +91,7 @@ li .deleteIcon:focus {
   position: absolute;
   right: 30px;
   top: 30px;
-  background-color: black;
+  background-color: #0d70ea;
   color: white;
   font-weight: 600;
   padding: 10px 14px;

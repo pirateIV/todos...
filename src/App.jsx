@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { FaPlus, FaTrashAlt, FaEdit } from 'react-icons/fa';
-
 import { FILTER_MAP, FILTER_NAMES  } from './services/filter'
+import AddTodo from './components/AddTodo';
+
+import TodoList, { TodoListLength } from './components/TodoList';
+import { CustomFilter } from './components/Filter';
 
 if (localStorage.getItem('todos') === null) {
   localStorage.setItem('todos', JSON.stringify([]));
@@ -105,86 +107,9 @@ const App = () => {
   );
 };
 
-const AddTodo = props => {
-  const { todo, setTodo, message, inputRef, addTodoRef, handleAddTodo } = props;
-  return (
-    <>
-      <form onSubmit={handleAddTodo} className='addTodoForm'>
-        <input
-          ref={inputRef}
-          type='text'
-          placeholder='Enter Todo...'
-          value={todo}
-          onChange={e => setTodo(e.target.value)}
-        />
-        <button ref={addTodoRef} disabled>
-          Add Todo
-          <FaPlus />
-        </button>
-      </form>
-      <span className='message'>{message}</span>
-    </>
-  );
-};
 
-const TodoList = props => {
-  const { todos, handleCheck, handleDelete, customFilter } = props;
-  const customTodos = [...todos].filter(FILTER_MAP[customFilter]);
-  return (
-    <ul className='todos'>
-      {customTodos.map(todo => (
-        <ListItem
-          key={todo.id}
-          todo={todo}
-          handleCheck={handleCheck}
-          handleDelete={handleDelete}
-        />
-      ))}
-    </ul>
-  );
-};
 
-const TodoListLength = ({ todos }) => {
-  return <pre className='todosCount'>{todos.length}</pre>;
-};
 
-const ListItem = ({ todo, handleCheck, handleDelete }) => (
-  <li>
-    <input
-      type='checkbox'
-      checked={todo.checked}
-      onChange={() => handleCheck(todo.id)}
-    />
-    <label htmlFor='todoItem'>{todo.todo}</label>
-    <span className='icons'>
-      <FaEdit
-        tabIndex={0}
-        className='editIcon'
-        aria-label={`Edit item ${todo.id}`}
-      />
-      <FaTrashAlt
-        tabIndex={0}
-        className='deleteIcon'
-        aria-label={`Delete item ${todo.id}`}
-        onClick={() => handleDelete(todo.id)}
-      />
-    </span>
-  </li>
-);
 
-const CustomFilter = ({ e, handleFilter }) => {
-  const filterList = FILTER_NAMES.map(name => (
-    <FilterButton key={name} name={name} handleFilter={handleFilter} />
-  ));
-  return <div className='custom-btn-filter'>{filterList}</div>;
-};
-
-const FilterButton = ({ name, handleFilter }) => {
-  return (
-    <button name={name} onClick={() => handleFilter(name)}>
-      {name}
-    </button>
-  );
-};
 
 export default App;
