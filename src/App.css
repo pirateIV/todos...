@@ -29,7 +29,7 @@ body {
 }
 
 .addTodoForm input {
-  flex: 0.84;
+  flex: 0.85;
   border: 3px solid lightgray;
   border-right: none;
 }

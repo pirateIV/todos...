@@ -104,27 +104,28 @@ const App = () => {
           handleSearch={handleSearch}
         />
 
-        <div>
-          <button onClick={() => setToggleSearch(!toggleSearch)}>
-            {!toggleSearch ? <FaFilter /> : <FaSearch />}
-          </button>
-        </div>
         {todos.length === 0 ? (
           <p className='empty'>No todos yet...</p>
         ) : (
           todos.length > 0 && (
-            <TodoList
-              todos={todoItems}
-              handleSearch={handleSearch}
-              handleCheck={handleCheck}
-              handleDelete={handleDelete}
-              customFilter={customFilter}
-            />
+            <>
+              <div>
+                <button onClick={() => setToggleSearch(!toggleSearch)}>
+                  {!toggleSearch ? <FaFilter /> : <FaSearch />}
+                </button>
+              </div>
+              <TodoList
+                todos={todoItems}
+                handleSearch={handleSearch}
+                handleCheck={handleCheck}
+                handleDelete={handleDelete}
+                customFilter={customFilter}
+              />
+            </>
           )
         )}
-
         <CustomFilter handleCustomFilter={handleCustomFilter} />
-
+        
         {todos.length > 0 && <TodoListLength todos={todos} />}
       </section>
     </main>
