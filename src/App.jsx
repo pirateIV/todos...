@@ -4,6 +4,8 @@ import AddTodo from './components/AddTodo';
 import { CustomFilter } from './components/Filter';
 import TodoList, { TodoListLength } from './components/TodoList';
 
+import { FaFilter, FaSearch } from 'react-icons/fa';
+
 // set localStorage to avoid errors where null
 if (localStorage.getItem('todos') === null) {
   localStorage.setItem('todos', JSON.stringify([]));
@@ -13,8 +15,9 @@ const App = () => {
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')));
 
   const [todo, setTodo] = useState('');
-  const [filter, setFilter] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [customFilter, setCustomFilter] = useState('All');
+  const [toggleSearch, setToggleSearch] = useState(false);
 
   const [message, setMessage] = useState('');
 
@@ -68,13 +71,13 @@ const App = () => {
     const updatedTodos = todos.filter(todo => todo.id !== id);
     setAndUpdateItems(updatedTodos);
   };
-  
-  const handleFilter = e => {
-    setFilter(e.target.value.toLowerCase());
+
+  const handleSearch = e => {
+    setSearchValue(e.target.value.toLowerCase());
   };
 
   const todoItems = todos.filter(item =>
-    item.todo.toLowerCase().includes(filter)
+    item.todo.toLowerCase().includes(searchValue)
   );
 
   const handleCustomFilter = name => {
@@ -90,18 +93,29 @@ const App = () => {
           todo={todo}
           message={message}
           setTodo={setTodo}
-          inputRef={inputRef}
           addTodoRef={addTodoRef}
+          inputRef={inputRef}
+          toggleSearch={toggleSearch}
           handleAddTodo={handleAddTodo}
         />
-        <FilterTodos filter={filter} handleFilter={handleFilter} />
+        <FilterTodos
+          filter={searchValue}
+          toggleSearch={toggleSearch}
+          handleSearch={handleSearch}
+        />
+
+        <div>
+          <button onClick={() => setToggleSearch(!toggleSearch)}>
+            {!toggleSearch ? <FaFilter /> : <FaSearch />}
+          </button>
+        </div>
         {todos.length === 0 ? (
           <p className='empty'>No todos yet...</p>
         ) : (
           todos.length > 0 && (
             <TodoList
               todos={todoItems}
-              handleFilter={handleFilter}
+              handleSearch={handleSearch}
               handleCheck={handleCheck}
               handleDelete={handleDelete}
               customFilter={customFilter}
@@ -117,13 +131,15 @@ const App = () => {
   );
 };
 
-const FilterTodos = ({ filter, handleFilter }) => {
+const FilterTodos = ({ filter, toggleSearch, handleSearch }) => {
+  const toggleSearchDisplay = { display: toggleSearch ? 'block' : 'none' };
   return (
     <input
       type='search'
       value={filter}
-      onChange={e => handleFilter(e)}
+      style={toggleSearchDisplay}
       placeholder='Filter Todos...'
+      onChange={e => handleSearch(e)}
     />
   );
 };

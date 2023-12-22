@@ -1,10 +1,19 @@
 import { FaPlus } from 'react-icons/fa';
 
 const AddTodo = props => {
-  const { todo, setTodo, message, inputRef, addTodoRef, handleAddTodo } = props;
+  const {
+    todo,
+    setTodo,
+    message,
+    inputRef,
+    addTodoRef,
+    handleAddTodo,
+    toggleSearch,
+  } = props;
+  const toggleSearchDisplay = { display: toggleSearch ? 'none' : 'flex' };
   return (
     <>
-      <form onSubmit={handleAddTodo} className='addTodoForm'>
+      <form onSubmit={handleAddTodo} style={toggleSearchDisplay} className='addTodoForm'>
         <input
           ref={inputRef}
           type='text'
