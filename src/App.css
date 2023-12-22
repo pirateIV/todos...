@@ -1,0 +1,103 @@
+input[type='checkbox'] {
+  height: 30px;
+  width: 30px;
+}
+input[type='checkbox']:checked + label {
+  text-decoration: line-through;
+}
+
+li {
+  background: lightgray;
+  margin: 3px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  position: relative;
+  animation: 0.45s cubic-bezier(0.165, 0.84, 0.44, 1) fadeIn;
+}
+li label {
+  padding-left: 10px;
+  width: 75%;
+}
+.icons {
+  right: 20px;
+  font-size: 20px;
+  position: absolute;
+  cursor: pointer;
+}
+.icons * {
+  margin: 0 0 0 10px;
+}
+.icons svg:first-child {
+  color: green;
+}
+.icons svg:last-child {
+  color: red;
+}
+
+li .deleteIcon:hover,
+li .deleteIcon:focus {
+  color: red;
+}
+.todosCount {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 50%;
+}
+
+.empty {
+  color: red;
+  margin-top: 50px;
+  text-align: center;
+}
+
+input[type='text'],
+button {
+  padding: 12px;
+  font-weight: 600;
+  font-family: 'Dejavu sans';
+}
+
+button {
+  gap: 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-btn-filter {
+  width: 400px;
+  margin: 50px auto 0;
+  display: flex;
+  align-items: center;
+}
+
+.custom-btn-filter button {
+  flex: 1;
+  display: inline;
+}
+.message {
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+}
+/* .custom-btn-filter button:focus {
+  outline: 5px solid dashed;
+} */
+
+/* ....... animations ....... */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
