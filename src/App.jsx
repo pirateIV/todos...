@@ -2,13 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { FaPlus, FaTrashAlt, FaEdit } from 'react-icons/fa';
 
-const FILTER_MAP = {
-  All: () => true,
-  Active: todo => !todo.completed,
-  Completed: todo => todo.completed,
-};
-
-const FILTER_NAMES = Object.keys(FILTER_MAP);
+import { FILTER_MAP, FILTER_NAMES  } from './services/filter'
 
 if (localStorage.getItem('todos') === null) {
   localStorage.setItem('todos', JSON.stringify([]));
