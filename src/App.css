@@ -12,6 +12,10 @@ body {
   margin: auto;
 }
 
+:root {
+  ---light-cyan: #0d70ea;
+}
+
 .todos {
   margin-top: 30px;
 }
@@ -39,8 +43,7 @@ body {
   color: white;
   align-items: center;
   border: 3px solid transparent;
-  background-color: #0d70ea;
-
+  background-color: var(---light-cyan);
 }
 input[type='checkbox'] {
   height: 30px;
@@ -48,6 +51,15 @@ input[type='checkbox'] {
 }
 input[type='checkbox']:checked + label {
   text-decoration: line-through;
+}
+
+input[type='search'] {
+  width: 100%;
+  border: 3px solid lightgray;
+}
+
+input[type='search']:focus {
+  border-right: 3px solid #0d70ea !important;
 }
 
 li {
@@ -91,7 +103,7 @@ li .deleteIcon:focus {
   position: absolute;
   right: 30px;
   top: 30px;
-  background-color: #0d70ea;
+  background-color: var(---light-cyan);
   color: white;
   font-weight: 600;
   padding: 10px 14px;
@@ -104,14 +116,14 @@ li .deleteIcon:focus {
   text-align: center;
 }
 
-input[type='text']:focus {
-  border: 3px solid #0d70ea;
+input[type='text']:focus,
+input[type='search']:focus {
+  border: 3px solid var(---light-cyan);
   border-right: 0;
 }
 
-input[type='text'],
-.addTodoForm button,
-button {
+button,
+input:not(input[type='checkbox']) {
   padding: 12px;
   font-weight: 600;
   font-size: 0.9em;
@@ -134,7 +146,7 @@ button:not(.addTodoForm button) {
   -webkit-user-select: none;
   touch-action: manipulation;
   box-shadow: rgba(0, 0, 0, 0.3) 0 5px 15px;
-  background-image: linear-gradient(#0dccea, #0d70ea);
+  background-image: linear-gradient(#0dccea, var(---light-cyan));
   transition: background-image 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 button:not(.addTodoForm button):hover {
@@ -179,6 +191,7 @@ button:not(.addTodoForm button):hover {
   }
 }
 
+/* ------ media queries ------  */
 @media (max-width: 700px) {
   .custom-btn-filter {
     width: 60%;
