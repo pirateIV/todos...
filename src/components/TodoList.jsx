@@ -2,7 +2,7 @@ import { FILTER_MAP  } from '../services/filter'
 import ListItem from './ListItem';
 
 const TodoList = props => {
-  const { todos, handleCheck, handleDelete, customFilter } = props;
+  const { todos, handleCheck, handleDelete, handleFilter,  customFilter } = props;
   const customTodos = [...todos].filter(FILTER_MAP[customFilter]);
   return (
     <ul className='todos'>

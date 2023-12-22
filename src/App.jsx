@@ -13,7 +13,7 @@ const App = () => {
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')));
 
   const [todo, setTodo] = useState('');
-  const [filter, setFilter] = useState('My first Task');
+  const [filter, setFilter] = useState('');
   const [customFilter, setCustomFilter] = useState('All');
 
   const [message, setMessage] = useState('');
@@ -68,10 +68,14 @@ const App = () => {
     const updatedTodos = todos.filter(todo => todo.id !== id);
     setAndUpdateItems(updatedTodos);
   };
+  
+  const handleFilter = e => {
+    setFilter(e.target.value.toLowerCase());
+  };
 
-  const handleFilter = () => {
-    
-  }
+  const todoItems = todos.filter(item =>
+    item.todo.toLowerCase().includes(filter)
+  );
 
   const handleCustomFilter = name => {
     setCustomFilter(name);
@@ -90,13 +94,14 @@ const App = () => {
           addTodoRef={addTodoRef}
           handleAddTodo={handleAddTodo}
         />
-        <FilterTodos filter={filter} setFilter={setFilter} />
+        <FilterTodos filter={filter} handleFilter={handleFilter} />
         {todos.length === 0 ? (
           <p className='empty'>No todos yet...</p>
         ) : (
           todos.length > 0 && (
             <TodoList
-              todos={todos}
+              todos={todoItems}
+              handleFilter={handleFilter}
               handleCheck={handleCheck}
               handleDelete={handleDelete}
               customFilter={customFilter}
@@ -112,12 +117,12 @@ const App = () => {
   );
 };
 
-const FilterTodos = ({ filter, setFilter }) => {
+const FilterTodos = ({ filter, handleFilter }) => {
   return (
     <input
       type='search'
       value={filter}
-      onChange={e => setFilter(e.target.value)}
+      onChange={e => handleFilter(e)}
       placeholder='Filter Todos...'
     />
   );
