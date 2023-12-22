@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { FILTER_MAP, FILTER_NAMES  } from './services/filter'
 import AddTodo from './components/AddTodo';
-
-import TodoList, { TodoListLength } from './components/TodoList';
 import { CustomFilter } from './components/Filter';
+import TodoList, { TodoListLength } from './components/TodoList';
 
+// set localStorage to avoid errors where null
 if (localStorage.getItem('todos') === null) {
   localStorage.setItem('todos', JSON.stringify([]));
 }
@@ -106,10 +105,5 @@ const App = () => {
     </main>
   );
 };
-
-
-
-
-
 
 export default App;
