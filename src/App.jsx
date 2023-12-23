@@ -21,7 +21,7 @@ const App = () => {
 
   const [message, setMessage] = useState('');
 
-  const setAndUpdateItems = todos => {
+  const setAndUpdateItems = (todos) => {
     setTodos(todos);
     localStorage.setItem('todos', JSON.stringify(todos));
   };
@@ -38,7 +38,7 @@ const App = () => {
         addTodoRef.current.disabled = true;
         setMessage(
           todo.trim().length > 0
-            ? `Required length remaining ${5 - todo.length}`
+            ? `Required length remaining ${5 - todo.trim().length}`
             : todo.length === 0 && 'Maximum required length is 5'
         );
         setInterval(() => {
@@ -49,7 +49,7 @@ const App = () => {
     handleInput();
   }, [todo]);
 
-  const handleAddTodo = e => {
+  const handleAddTodo = (e) => {
     e.preventDefault();
     const id = todos.length ? todos[todos.length - 1].id + 1 : 1;
     const newTodo = { id, todo, checked: false };
@@ -60,28 +60,34 @@ const App = () => {
     setTodo('');
   };
 
-  const handleCheck = id => {
-    const todoItems = todos.map(todo =>
+  const handleCheck = (id) => {
+    const todoItems = todos.map((todo) =>
       todo.id === id ? { ...todo, checked: !todo.checked } : todo
     );
     setAndUpdateItems(todoItems);
   };
 
-  const handleDelete = id => {
-    const updatedTodos = todos.filter(todo => todo.id !== id);
+  const handleDelete = (id) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
     setAndUpdateItems(updatedTodos);
   };
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     setSearchValue(e.target.value.toLowerCase());
   };
 
-  const todoItems = todos.filter(item =>
-    item.todo.toLowerCase().includes(searchValue)
-  );
+  const todoItems = todos.filter((item) => item.todo.toLowerCase().includes(searchValue));
 
-  const handleCustomFilter = name => {
+  const handleCustomFilter = (name) => {
     setCustomFilter(name);
+  };
+
+  const handleEdit = (id) => {
+    const editedTodos = todos.map((item) => {
+      todo.length > 5 && setTodo('');
+      return todo.length > 5 && item.id === id ? { ...item, todo: todo } : item;
+    });
+    setTodos(editedTodos);
   };
 
   return (
@@ -116,6 +122,7 @@ const App = () => {
                 todos={todoItems}
                 handleSearch={handleSearch}
                 handleCheck={handleCheck}
+                handleEdit={handleEdit}
                 handleDelete={handleDelete}
                 customFilter={customFilter}
               />

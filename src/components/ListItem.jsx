@@ -1,18 +1,15 @@
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 
-const ListItem = ({ todo, handleCheck, handleDelete }) => (
+const ListItem = ({ todo, handleCheck, handleEdit, handleDelete }) => (
   <li>
-    <input
-      type='checkbox'
-      checked={todo.checked}
-      onChange={() => handleCheck(todo.id)}
-    />
+    <input type='checkbox' checked={todo.checked} onChange={() => handleCheck(todo.id)} />
     <label htmlFor='todoItem'>{todo.todo}</label>
     <span className='icons'>
       <FaEdit
         tabIndex={0}
         className='editIcon'
         aria-label={`Edit item ${todo.id}`}
+        onClick={() => handleEdit(todo.id)}
       />
       <FaTrashAlt
         tabIndex={0}

@@ -8,18 +8,14 @@ export const FilterTodos = ({ filter, toggleSearch, handleSearch }) => {
       value={filter}
       style={toggleSearchDisplay}
       placeholder='Filter Todos...'
-      onChange={e => handleSearch(e)}
+      onChange={(e) => handleSearch(e)}
     />
   );
 };
 
-export const CustomFilter = ({ e, handleCustomFilter }) => {
-  const filterList = FILTER_NAMES.map(name => (
-    <FilterButton
-      key={name}
-      name={name}
-      handleCustomFilter={handleCustomFilter}
-    />
+export const CustomFilter = ({ handleCustomFilter }) => {
+  const filterList = FILTER_NAMES.map((name) => (
+    <FilterButton key={name} name={name} handleCustomFilter={handleCustomFilter} />
   ));
   return <div className='custom-btn-filter'>{filterList}</div>;
 };

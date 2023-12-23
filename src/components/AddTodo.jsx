@@ -1,15 +1,7 @@
 import { FaPlus } from 'react-icons/fa';
 
-const AddTodo = props => {
-  const {
-    todo,
-    setTodo,
-    message,
-    inputRef,
-    addTodoRef,
-    handleAddTodo,
-    toggleSearch,
-  } = props;
+const AddTodo = (props) => {
+  const { todo, message, setTodo, inputRef, addTodoRef, toggleSearch, handleAddTodo } = props;
   const toggleSearchDisplay = { display: toggleSearch ? 'none' : 'flex' };
   return (
     <>
@@ -19,7 +11,7 @@ const AddTodo = props => {
           type='text'
           placeholder='Enter Todo...'
           value={todo}
-          onChange={e => setTodo(e.target.value)}
+          onChange={(e) => setTodo(e.target.value)}
         />
         <button ref={addTodoRef} disabled>
           Add Todo
