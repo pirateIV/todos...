@@ -84,6 +84,7 @@ const App = () => {
 
   const handleEdit = (id) => {
     const editedTodos = todos.map((item) => {
+      setMessage('max 5 character to edit')
       todo.length > 5 && setTodo('');
       return todo.length > 5 && item.id === id ? { ...item, todo: todo } : item;
     });
