@@ -6,13 +6,8 @@ import TodoList, { TodoListLength } from './components/TodoList';
 
 import { FaPlus, FaSearch } from 'react-icons/fa';
 
-// set localStorage to avoid errors where null
-if (localStorage.getItem('todos') === null) {
-  localStorage.setItem('todos', JSON.stringify([]));
-}
-
 const App = () => {
-  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')));
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
 
   const [todo, setTodo] = useState('');
   const [searchValue, setSearchValue] = useState('');
@@ -21,10 +16,9 @@ const App = () => {
 
   const [message, setMessage] = useState('');
 
-  const setAndUpdateItems = (todos) => {
-    setTodos(todos);
+  useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-  };
+  }, [todos]);
 
   const addTodoRef = useRef();
   const inputRef = useRef();
@@ -56,7 +50,8 @@ const App = () => {
     const todoItems = [...todos, newTodo];
 
     inputRef.current.focus();
-    setAndUpdateItems(todoItems);
+    setTodos(todoItems);
+
     setTodo('');
   };
 
@@ -64,12 +59,12 @@ const App = () => {
     const todoItems = todos.map((todo) =>
       todo.id === id ? { ...todo, checked: !todo.checked } : todo
     );
-    setAndUpdateItems(todoItems);
+    setTodos(todoItems);
   };
 
   const handleDelete = (id) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setAndUpdateItems(updatedTodos);
+    setTodos(updatedTodos);
   };
 
   const handleSearch = (e) => {
@@ -84,7 +79,7 @@ const App = () => {
 
   const handleEdit = (id) => {
     const editedTodos = todos.map((item) => {
-      setMessage('max 5 character to edit')
+      setMessage('max 5 character to edit');
       todo.length > 5 && setTodo('');
       return todo.length > 5 && item.id === id ? { ...item, todo: todo } : item;
     });
@@ -116,7 +111,9 @@ const App = () => {
         ) : (
           todos.length > 0 && (
             <>
-              <button type='button' onClick={() => setToggleSearch(!toggleSearch)}>
+              <button
+                type='button'
+                onClick={() => setToggleSearch(!toggleSearch)}>
                 {!toggleSearch ? <FaSearch /> : <FaPlus />}
               </button>
               <TodoList
