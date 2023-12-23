@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import AddTodo from './components/AddTodo';
-import { CustomFilter } from './components/Filter';
+import { CustomFilter, FilterTodos } from './components/Filter';
 import TodoList, { TodoListLength } from './components/TodoList';
 
-import { FaFilter, FaSearch } from 'react-icons/fa';
+import { FaPlus, FaSearch } from 'react-icons/fa';
 
 // set localStorage to avoid errors where null
 if (localStorage.getItem('todos') === null) {
@@ -31,13 +31,13 @@ const App = () => {
 
   useEffect(() => {
     const handleInput = () => {
-      if (todo.length >= 5) {
+      if (todo.trim().length >= 5) {
         addTodoRef.current.disabled = false;
         setMessage('');
       } else {
         addTodoRef.current.disabled = true;
         setMessage(
-          todo.length > 0
+          todo.trim().length > 0
             ? `Required length remaining ${5 - todo.length}`
             : todo.length === 0 && 'Maximum required length is 5'
         );
@@ -109,11 +109,9 @@ const App = () => {
         ) : (
           todos.length > 0 && (
             <>
-              <div>
-                <button onClick={() => setToggleSearch(!toggleSearch)}>
-                  {!toggleSearch ? <FaFilter /> : <FaSearch />}
-                </button>
-              </div>
+              <button type='button' onClick={() => setToggleSearch(!toggleSearch)}>
+                {!toggleSearch ? <FaSearch /> : <FaPlus />}
+              </button>
               <TodoList
                 todos={todoItems}
                 handleSearch={handleSearch}
@@ -125,23 +123,10 @@ const App = () => {
           )
         )}
         <CustomFilter handleCustomFilter={handleCustomFilter} />
-        
+
         {todos.length > 0 && <TodoListLength todos={todos} />}
       </section>
     </main>
-  );
-};
-
-const FilterTodos = ({ filter, toggleSearch, handleSearch }) => {
-  const toggleSearchDisplay = { display: toggleSearch ? 'block' : 'none' };
-  return (
-    <input
-      type='search'
-      value={filter}
-      style={toggleSearchDisplay}
-      placeholder='Filter Todos...'
-      onChange={e => handleSearch(e)}
-    />
   );
 };
 

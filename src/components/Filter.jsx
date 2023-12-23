@@ -1,5 +1,18 @@
 import { FILTER_NAMES } from '../services/filter';
 
+export const FilterTodos = ({ filter, toggleSearch, handleSearch }) => {
+  const toggleSearchDisplay = { display: toggleSearch ? 'block' : 'none' };
+  return (
+    <input
+      type='search'
+      value={filter}
+      style={toggleSearchDisplay}
+      placeholder='Filter Todos...'
+      onChange={e => handleSearch(e)}
+    />
+  );
+};
+
 export const CustomFilter = ({ e, handleCustomFilter }) => {
   const filterList = FILTER_NAMES.map(name => (
     <FilterButton
