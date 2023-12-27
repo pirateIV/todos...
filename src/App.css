@@ -112,7 +112,8 @@ li .deleteIcon:focus {
 }
 
 .empty {
-  color: red;
+  color: rgb(0, 42, 255);
+  font-weight: bold;
   margin-top: 50px;
   text-align: center;
 }
