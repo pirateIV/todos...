@@ -60,7 +60,7 @@ We welcome contributions! If you would like to contribute to the project, please
 
 ## License
 
-This project is licensed under the [Your License] License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/ben64103/Todo-List-React/blob/master/LICENSE) file for details.
 
 ## Contact
 
