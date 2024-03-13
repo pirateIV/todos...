@@ -5,6 +5,8 @@ A simple and intuitive ToDoList application built with React for efficient task 
 
 ## Features
 
+PS: This is just a my intern work will be updated sion
+
 - **User-Friendly Interface:** Clean and responsive design for a seamless user experience.
 - **Add, Edit, Delete Tasks:** Easily add, edit, and delete tasks with just a few clicks.
 <!-- - **Task Prioritization:** Set priorities for tasks to stay organized.
